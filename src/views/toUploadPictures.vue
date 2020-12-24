@@ -75,9 +75,10 @@
 
 <script>
 import UploadPopUp from '@/components/PopUp/UplosdPopUp'
-import { getByProductId, getUpdateROFilter, getDecodeQRCode } from '../api/api'
+import { getByProductId, getUpdateROFilter, getDecodeQRCode, UpdateCustomerTeachingChangFilter, getCustomerByLineMid } from '../api/api'
 import GuideTow from '@/components/PopUp/Guide_2'
 import Loging from '@/components/PopUp/loging'
+import storage from '@/storage'
 import { setTimeout } from 'timers'
 
 export default {
@@ -124,11 +125,16 @@ export default {
         CustProdId
       }).then((res) => {
         this.toViewDetails = res.data.Data[0].Detail[this.Sequence - 1]
-        if (!res.data.Data[0].IsOldWaterProduct) {
-          this.isShowUpload = true
-        }
+        // if (!res.data.Data[0].IsOldWaterProduct) {
+        //   this.isShowUpload = true
+        // }
         this.isShowLoadging = false
         // console.log('u', this.toViewDetails)
+        const userInfo = storage.getItem('userName')
+        if (!userInfo.Teaching_DT_Change_Filter) {
+          this.isShowUpload = true
+          this.noScroll()
+        }
       })
     },
     getTopRight () {
@@ -147,7 +153,26 @@ export default {
     },
     Uploadbtn () {
       // this.$router.push({ name: 'FilterToView' })
-      this.isShowUpload = false
+      // this.isShowUpload = false
+      UpdateCustomerTeachingChangFilter({
+        LINEMid: storage.getItem('LINEMid')
+      }).then(res => {
+        this.isShowUpload = false
+        this.canScroll()
+        const mo = function (e) {
+          e.preventDefault()
+        }
+        document.body.style.overflow = ''
+        document.removeEventListener('touchmove', mo, false)
+        getCustomerByLineMid({
+          LINEMid: storage.getItem('LINEMid')
+        }).then(res => {
+          if (res.status === 200) {
+            this.userName = res.data.Data
+            storage.setItem('userName', res.data.Data)
+          }
+        })
+      })
     },
     handleResize (event) {
       this.fullWidth = document.documentElement.clientWidth

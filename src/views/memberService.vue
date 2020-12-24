@@ -61,7 +61,7 @@ export default {
   },
   data () {
     return {
-      isShowLoadging: true,
+      isShowLoadging: false,
       isShowFour: false,
       ProductId: '',
       map: {},
@@ -77,6 +77,7 @@ export default {
   },
   methods: {
     _getMaintenanceDistribution () {
+      this.isShowLoadging = true
       const { ProductId } = this
       getMaintenanceDistribution({
         ProductId

@@ -156,7 +156,7 @@
 import GuideOne from '@/components/PopUp/Guide_1'
 import GuideTwo from '@/components/PopUp/Guide_2'
 import GuideThree from '@/components/PopUp/Guide_3'
-import { getByProductId, getCreateFilterOrder, UpdateCustomerTeachingChangFilter, getCustomerByLineMid } from '@/api/api'
+import { getByProductId, getCreateFilterOrder, UpdateCustomerTeachingBuy2Filter, getCustomerByLineMid } from '@/api/api'
 // , getCreateFilterOrder
 import myDatepicker from 'vue-datepicker'
 import storage from '@/storage'
@@ -313,14 +313,14 @@ export default {
         // this.noScroll()
         // }
         const userInfo = storage.getItem('userName')
-        if (!userInfo.Teaching_DT_Change_Filter) {
+        if (!userInfo.Teaching_DT_Buy2_Filter) {
           this.isShow = true
           this.noScroll()
         }
       })
     },
     clickBtn () {
-      UpdateCustomerTeachingChangFilter({
+      UpdateCustomerTeachingBuy2Filter({
         LINEMid: storage.getItem('LINEMid')
       }).then(res => {
         this.isShow = false

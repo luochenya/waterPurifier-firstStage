@@ -31,7 +31,9 @@ export const getDecodeQRCode = p => reqM2Service('/GetMFNO', p)
 // 獲取該用戶所有經銷商信息
 export const getMaintenanceDistributionByCustId = p => reqM1Service('/GetMaintenanceDistributionByCustId', p)
 
-// 更新客戶購買濾心教學時間
+// 更改濾芯專人到府/到店取貨教學
 export const UpdateCustomerTeachingBuyFilter = p => reqM1Service('/UpdateCustomerTeaching_Buy_Filter', p)
-// 更新客戶更換濾心教學時間
+// 更改濾芯專人到府/到店取貨内容教學
+export const UpdateCustomerTeachingBuy2Filter = p => reqM1Service('/UpdateCustomerTeaching_Buy2_Filter', p)
+// 更新客戶更換濾心教學
 export const UpdateCustomerTeachingChangFilter = p => reqM1Service('/UpdateCustomerTeaching_Chang_Filter', p)
